@@ -1,13 +1,17 @@
 package com.example.Account.model;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document( collection = "Account")
 public class Account {
+
 	@Id
 	private String accountNumber;
 	private String accountType;
+	@NotNull(message = "No puede ser vacio el campo accountHolder")
 	private String accountHolder;
 
 	public String getAccountType() {
