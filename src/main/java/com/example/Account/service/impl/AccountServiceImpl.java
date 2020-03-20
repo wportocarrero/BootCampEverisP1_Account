@@ -1,5 +1,7 @@
 package com.example.Account.service.impl;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,8 +40,13 @@ public class AccountServiceImpl implements AccountService{
 
 	@Override
 	public Mono<Account> update(Account c, String id) {
-		// TODO Auto-generated method stub
-		return null;
+	      return dao.findById(id).flatMap(acc -> {
+	    	  acc.setAccountNumber(c.getAccountNumber());
+	    	  acc.setAccountType(c.getAccountType());
+	    	  acc.setAccountHolder(c.getAccountHolder());
+	    	  acc.setModifyDate(new Date());
+	          return dao.save(acc);
+	        }).switchIfEmpty(Mono.empty());
 	}
 
 }

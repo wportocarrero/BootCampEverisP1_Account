@@ -49,22 +49,21 @@ public class AccountController {
 	public Mono<ResponseEntity<Account>> createAccount(@Valid @RequestBody Account account) {
 		return IaccountService.createAccount(account)
 				.map(item-> ResponseEntity
-						.created(URI.create("/account".concat(item.getAccountNumber())))
+						.created(URI.create("/account".concat(item.getId())))
 						.contentType(MediaType.APPLICATION_JSON)
 						.body(item));
-		//asdas
 	}
 	
-//    //ACTUALIZAR UN CLIENTE
-//    @PutMapping("/update/{id}")
-//    public Mono<ResponseEntity<Account>> update(@PathVariable("id") String id, @RequestBody Account account) {
-//        return IaccountService.update(account, id)
-//                .map(c -> ResponseEntity
-//                        .created(URI.create("/clients".concat(c.getId())))
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .body(c))
-//                .defaultIfEmpty(ResponseEntity.notFound().build());
-//    }
+    //ACTUALIZAR UN CLIENTE
+    @PutMapping("/update/{id}")
+    public Mono<ResponseEntity<Account>> update(@PathVariable("id") String id, @RequestBody Account account) {
+        return IaccountService.update(account, id)
+                .map(c -> ResponseEntity
+                        .created(URI.create("/account".concat(c.getId())))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(c))
+                .defaultIfEmpty(ResponseEntity.notFound().build());
+    }
 	
 	@DeleteMapping("/deleteAccount/{id}")
 	public String dlAccount(@PathVariable String id) {
