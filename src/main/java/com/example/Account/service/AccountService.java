@@ -7,9 +7,9 @@ import reactor.core.publisher.Mono;
 
 public interface AccountService {
 	
-	Flux<Account> findAll();
-	Mono<Account> createAccount(Account account);
-    Mono<Account> update(Account c, String id);
-	void deleteAccount(String id );
-	Mono<Account> findById(String id);
+	public Flux<Account> findAll();
+	public Mono<Account> createAccount(Account account);
+	public Mono<Account> update(Account c, String id);
+	public Mono<Void> delete(String id );
+	public Mono<Account> findById(String id);
 }

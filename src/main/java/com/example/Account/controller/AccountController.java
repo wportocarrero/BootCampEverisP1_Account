@@ -5,6 +5,7 @@ import java.net.URI;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
@@ -31,8 +32,6 @@ public class AccountController {
 	@Autowired
 	private AccountService IaccountService;
 	
-	@Autowired
-	private AccountRepo arep;
 	
 	@GetMapping("/findAll")
 	public Flux<Account> findAll(){
@@ -65,9 +64,10 @@ public class AccountController {
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 	
-	@DeleteMapping("/deleteAccount/{id}")
-	public String dlAccount(@PathVariable String id) {
-		arep.deleteById(id);
-		return "account erased : " + id;
+	@DeleteMapping("/delete/{id}")
+	public Mono<ResponseEntity<Void>> dlAccount(@PathVariable String id) {
+		return IaccountService.delete(id)
+				.then(Mono.just(new ResponseEntity<Void>(HttpStatus.NO_CONTENT)))
+                .defaultIfEmpty(new ResponseEntity<Void>(HttpStatus.NOT_FOUND));
 	}
 }

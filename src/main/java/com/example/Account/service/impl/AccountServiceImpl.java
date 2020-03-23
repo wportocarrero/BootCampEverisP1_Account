@@ -29,8 +29,14 @@ public class AccountServiceImpl implements AccountService{
 	}
 
 	@Override
-	public void deleteAccount(String id) {
-		dao.deleteById(id);
+	public Mono<Void> delete(String id) {
+		try {
+            return dao.findById(id).flatMap(acc -> {
+                return dao.delete(acc);
+            });
+        } catch (Exception e) {
+            return Mono.error(e);
+        }
 	}
 
 	@Override
