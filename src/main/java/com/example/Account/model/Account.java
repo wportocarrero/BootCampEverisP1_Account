@@ -2,22 +2,36 @@ package com.example.Account.model;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Document( collection = "Account")
+@EqualsAndHashCode(callSuper = false)
 public class Account {
 
 	@Id
 	private String id;
-
+	@NotBlank(message = "'accountNumber' is required")
 	private String accountNumber;
 	private String accountType;
-	@NotNull(message = "No puede ser vacio el campo accountHolder")
+	@NotBlank(message = "'accountHolder' is required")
 	private String accountHolder;
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date createDate;
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date modifyDate;
 	
 
