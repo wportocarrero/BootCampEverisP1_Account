@@ -1,13 +1,13 @@
-package com.example.Account;
+package everis.bootcamp.creditproductms;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AccountApplicationTests {
+class CreditproductmsApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+  @Test
+  void contextLoads() {
+  }
 
 }
